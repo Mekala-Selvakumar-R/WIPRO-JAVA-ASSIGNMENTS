@@ -1,0 +1,75 @@
+Assignment 3:
+
+Bank Account Management System - Encapsulation Problem
+
+Problem Statement
+
+Create a BankAccount class that demonstrates encapsulation principles to manage a customers bank account securely.
+
+ Requirements
+
+ 1. Private Data Members
+Create the following private variables:
+- accountNumber (String)
+- accountHolderName (String)
+- balance (double)
+- accountType (String) - "Savings" or "Current"
+
+2. Constructor
+- Create a parameterized constructor to initialize all the variables
+- Initial balance must be at least ₹1000 (minimum balance)
+
+ 3. Getter Methods
+Create getter methods for:
+- Account Number
+- Account Holder Name
+- Balance
+- Account Type
+
+ 4. Setter Methods with Validation
+- setAccountHolderName(): Should not accept empty or null names
+- setAccountType(): Should only accept "Savings" or "Current"
+- Balance should NOT have a direct setter (security measure)
+
+5. Business Logic Methods
+
+Implement the following methods with proper validation:
+
+a) deposit(double amount)
+- Add money to the account
+- Amount must be positive
+- Amount must be less than ₹50,000 per transaction
+- Return true if successful, false otherwise
+
+b) withdraw(double amount)
+- Deduct money from the account
+- Amount must be positive
+- Account must maintain minimum balance of ₹1000
+- Return true if successful, false otherwise
+
+c) displayAccountInfo()
+- Display all account details in a formatted way
+
+---
+
+Sample Input/Output
+
+Creating Account...
+Account Number: ACC12345
+Holder Name: Priya Sharma
+Initial Balance: ₹5000.00
+Account Type: Savings
+
+Depositing ₹3000...
+  Deposit successful! New Balance: ₹8000.00
+
+Withdrawing ₹6500...
+  Withdrawal successful! New Balance: ₹1500.00
+
+Attempting to withdraw ₹1000...
+  Insufficient balance! Minimum ₹1000 must be maintained.
+
+Attempting to deposit ₹60000...
+  Deposit failed! Maximum deposit per transaction is ₹50,000. Account Management System - Encapsulation Problem
+
+

@@ -1,0 +1,111 @@
+ Case Study 1: Netflix-Style Movie Streaming Platform
+
+Business Context
+
+You are working for a streaming platform similar to Netflix. The platform has millions of users and thousands of movies. You need to build a recommendation system and analytics dashboard.
+
+ Problem Statement
+
+Design a Java application to manage movies, user ratings, and generate insights for business decisions.
+
+Given Data Structures
+
+Movie Class:
+- movieId (String)
+- title (String)
+- genre (String) - e.g., "Action", "Drama", "Comedy", "Thriller"
+- releaseYear (int)
+- duration (int) - in minutes
+- rating (double) - average user rating (0-10)
+- views (long) - total number of views
+
+UserWatching Class:
+- userId (String)
+- movieId (String)
+- watchedMinutes (int)
+- completionPercentage (double)
+- userRating (double) - 0-10
+- watchedDate (LocalDate)
+
+ Requirements
+
+ Level 1: Basic Operations (For beginners)
+1. List all movies with rating > 8.0
+2. Find all movies in "Action" genre
+3. Count total number of movies in the platform
+4. Display movies sorted by rating (highest first)
+5. Find movies released after 2020
+6. Calculate average rating of all movies
+
+Level 2: Intermediate Operations
+7. Group movies by genre and count how many movies in each genre
+8. Find top 5 most-watched movies (by views)
+9. Calculate genre-wise average rating
+10. Find movies with duration between 90-120 minutes
+11. List movies that have been watched by more than 1 million users
+12. Find the longest movie in each genre
+
+ Level 3: Advanced Operations
+13. Calculate completion rate: What percentage of users who started a movie actually finished it (>90% watched)?
+14. Find "trending movies": Movies released in last 2 years with rating > 7.5 and views > 500,000
+15. Recommend movies: Given a user's favorite genre, recommend top 5 highest-rated unwatched movies
+16. Calculate revenue potential: Movies with high views but low ratings (might need improvement)
+17. Identify "binge-worthy content": Movies in same genre that users typically watch together
+18. Generate a report: For each genre, show total movies, average rating, total views, and most popular movie
+
+Expected Output Format
+
+ 
+=== NETFLIX ANALYTICS DASHBOARD ===
+
+1. HIGH-RATED MOVIES (Rating > 8.0)
+   - The Shawshank Redemption (Drama, 9.3, 1994)
+   - The Dark Knight (Action, 9.0, 2008)
+   ...
+
+2. GENRE DISTRIBUTION
+   Action: 145 movies
+   Drama: 230 movies
+   Comedy: 180 movies
+   ...
+
+3. TOP 5 TRENDING MOVIES
+   1. Extraction 2 (Action, 8.2, 2023, 5.2M views)
+   2. Glass Onion (Thriller, 8.5, 2022, 4.8M views)
+   ...
+
+4. GENRE-WISE PERFORMANCE
+   Genre: Action
+   - Total Movies: 145
+   - Average Rating: 7.2
+   - Total Views: 52.3M
+   - Top Movie: John Wick 4 (8.9)
+   
+   Genre: Drama
+   ...
+
+5. COMPLETION RATE ANALYSIS
+   Movies with >80% completion rate: 234
+   Movies with <50% completion rate: 89
+   Average completion rate: 67.8%
+
+6. REVENUE OPTIMIZATION TARGETS
+   High Views + Low Rating (Need Improvement):
+   - Movie X (2.3M views, 5.2 rating)
+   - Movie Y (1.8M views, 5.5 rating)
+```
+
+Technical Hints
+- Use `List<Movie>` to store all movies
+- Use `Map<String, List<Movie>>` for grouping by genre
+- Use `stream().filter()` for filtering conditions
+- Use `Collectors.groupingBy()` for grouping operations
+- Use `sorted()` with `Comparator` for sorting
+- Use `mapToDouble().average()` for calculating averages
+
+ Business Value
+This system helps the platform to:
+- Understand content performance
+- Make data-driven decisions for content acquisition
+- Personalize user recommendations
+- Identify content gaps in the catalog

@@ -1,0 +1,63 @@
+Assignment II
+
+Problem Statement: “The Digital Lock Analyzer”
+
+Scenario:
+A futuristic security company has developed a  “digital lock system”  that protects secret vaults.
+The lock uses a security code number, and your job is to build a Java program that analyzes and decodes this number to determine how secure it is.
+
+Problem Description:
+Write a Java program that performs the following operations on a single integer input (the security code):
+1. Input Validation:
+   - Accept only positive integers
+   -  If the input is 0 or negative, display an error message and stop execution.
+
+2.  Digit Analysis:
+    - Extract and analyze each digit of the number.
+   - For each digit:
+-  If it is even, square it (digit × digit).
+     	- If it is odd, cube it (digit × digit × digit).	
+    Form a  new number sequence based on the above transformations.
+
+3. Security Transformation:
+  -  Compute the  sum of all transformed digits
+    - If the sum is even, divide it by 2.
+   -  If the sum is odd, multiply it by 3 and add 1.
+
+4. Security Level Classification:
+   * Based on the final transformed sum, assign a security level:
+     ≤ 50      → Level: Weak
+     51–150    → Level: Moderate
+     151–300   → Level: Strong
+     > 300     → Level: Ultra Secure
+   5. Bonus Rule (Hidden Trigger):
+    - If any digit in the original number is 5, print:
+     `"🔒 Hidden Security Trigger Activated!"`
+
+6. Output:
+Oriinal number
+   * Transformed digit sequence
+   * Transformed sum
+   * Final security level
+
+Example Run:
+
+Input:
+Enter security code: 2457
+Process:
+Digits: 2, 4, 5, 7
+Even digits → square them → 2² = 4, 4² = 16
+Odd digits → cube them → 5³ = 125, 7³ = 343
+New sequence: 4, 16, 125, 343
+Sum = 488 (even) → 488 ÷ 2 = 244
+Security Level: Strong
+Digit '5' found → 🔒 Hidden Security Trigger Activated!
+
+ Expected Output:
+
+Original Code: 2457
+Transformed Sequence: 4, 16, 125, 343
+Transformed Sum: 488 → Final Value: 244
+Security Level: Strong
+🔒 Hidden Security Trigger Activated!
+ The lock uses a  “security code number”, and your job is to build a Java program that   analyzes and decodes  this number to determine how secure it is.

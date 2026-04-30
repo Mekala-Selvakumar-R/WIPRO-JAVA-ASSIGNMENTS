@@ -1,0 +1,186 @@
+Scenario 1 — Student Grade System (if–else)
+
+Problem
+A student’s mark is given. Print the grade:
+
+- 90 and above → A
+- 75–89 → B
+-  50–74 → C
+- Below 50 → Fail
+
+---
+
+Scenario 2 — Even or Odd with Zero Check (if)
+
+Problem
+Given a number:
+
+- If number is 0 → print “Zero”
+- If number is even → print “Even”
+- Otherwise → print “Odd”
+
+---
+Scenario 3 — Largest of Three Numbers (nested if)
+
+Problem
+Find the largest among three numbers entered by the user.
+
+---
+
+Scenario 4 — Voting Eligibility (if–else)
+
+Problem
+Check if a person is eligible to vote:
+
+- Age ≥ 18 → “Eligible”
+- Otherwise → “Not Eligible”
+
+Add extra condition:
+
+- If age > 100 → “Invalid age”
+
+---
+Scenario 5 — Salary Bonus Calculation (if–else ladder)
+
+Problem
+An employee gets bonus based on years of experience:
+
+-  > 10 years → 20% bonus
+-  5–10 years → 10% bonus
+- 1–4 years → 5% bonus
+- < 1 year → No bonus
+
+---
+
+Scenario 6 — Day of Week (switch)
+
+Problem
+User enters a number (1–7). Print the day of the week.
+
+---
+
+Scenario 7 — Simple Calculator (switch)
+
+Problem
+User enters two numbers and an operator (`+`, `-`, `*`, `/`).
+Perform the calculation using `switch`.
+
+---
+
+Scenario 8 — Login Validation (if with String)
+
+Problem
+If username is `"admin"` and password is `"1234"`, print “Login Successful”.
+Else print “Invalid Credentials”.
+
+---
+
+Scenario 9 — Electricity Bill Calculation (if–else)
+
+Problem
+Units consumed:
+
+- First 100 units → ₹2/unit
+- Next 200 units → ₹3/unit
+- Above 300 units → ₹5/unit
+
+Calculate total bill.
+
+---
+Scenario 10 — Leap Year Check (if)
+
+Problem
+Check whether a given year is a leap year.
+
+Rule:
+
+* Divisible by 4
+* Not divisible by 100 unless divisible by 400
+
+---
+Scenario 11 — Shopping Discount (if–else)
+
+Problem
+If purchase amount:
+
+-  ≥ 5000 → 30% discount
+-  ≥ 3000 → 20% discount
+-  ≥ 1000 → 10% discount
+-  Otherwise → No discount
+
+---
+
+Scenario 12 — Character Type Check (if–else)
+
+Problem
+Given a character, check whether it is:
+
+- Alphabet
+- Digit
+- Special character
+
+---
+
+Scenario 13 — Temperature Advice (if–else)
+Problem
+Based on temperature:
+
+- > 35 → “Very Hot”
+- 25–35 → “Warm”
+- 15–24 → “Cool”
+- < 15 → “Cold”
+
+---
+
+Scenario 14 — Exam Result with Attendance (nested if)
+
+Problem
+Student passes only if:
+
+- Marks ≥ 50
+- Attendance ≥ 75%
+
+Else fail.
+
+---
+Scenario 15 — Movie Ticket Pricing (if–else)
+
+Problem
+Ticket price based on age:
+
+- Children (<12) → ₹100
+- Adults (12–60) → ₹200
+- Senior citizens (>60) → ₹120
+
+---
+
+
+Arrays :
+
+
+1. Perform the binary search in an array and find the element
+
+2. Find the largest number in an array and its position.
+
+3. Find the  second smallest number in an array and its position.
+
+4. Count how many even and odd numbers are present.
+
+5. An e-commerce app stores product prices in an array. Apply a 10% discount and print the new prices.
+
+6. Two arrays: find common elements.
+
+7. A class has marks of students in an array. Find:
+
+Average marks
+
+Highest marks
+
+How many students scored above average.
+
+8. Check if the array is a palindrome.
+
+9. Print array elements in reverse order (without reversing).
+
+10. Rotate the array left by K positions.
+ 

@@ -1,0 +1,26 @@
+Assignment 5 :
+
+Question 1 :
+SCENARIO : EMAIL VALIDATOR
+ Problem: A company needs to validate employee email addresses
+Rules: Must contain @, domain should be company.com, no spaces allowed
+
+
+Question 2 :
+SCENARIO 2: PASSWORD STRENGTH CHECKER 
+ Problem: Banking app needs to check if password meets security requirements
+ Rules: Min 8 chars, at least 1 uppercase, 1 lowercase, 1 digit, 1 special char
+
+
+ SCENARIO 3: CREDIT CARD MASKER 
+ Problem: E-commerce site needs to mask credit card numbers for security
+ Show only last 4 digits: 1234-5678-9012-3456 → ****-****-****-3456
+
+SCENARIO 4: USERNAME GENERATOR 
+ Problem: Social media platform generates usernames from full names
+ Rule: firstname.lastname, convert to lowercase, remove spaces
+
+ SCENARIO 5: URL SHORTENER 
+ Problem: Create a simple URL slug from article title
+ Rule: Convert to lowercase, replace spaces with hyphens, remove special chars
+

@@ -1,0 +1,183 @@
+Assignment  8:
+
+ Case Study : Amazon-Style E-Commerce Order Management System
+
+Business Context
+You are working for an e-commerce company like Amazon. During the holiday season, the platform receives millions of orders. You need to build an order processing and analytics system.
+
+ Problem Statement
+Create a Java application to manage orders, calculate business metrics, detect fraud, and optimize inventory.
+
+Given Data Structures
+
+Product Class:
+- productId (String)
+- productName (String)
+- category (String) - "Electronics", "Clothing", "Books", "Home", "Toys"
+- price (double)
+- stockQuantity (int)
+- seller (String)
+- rating (double)
+
+Order Class:
+orderId (String)
+- customerId (String)
+- productId (String)
+- quantity (int)
+- orderAmount (double)
+- orderDate (LocalDateTime)
+- status (String) - "PLACED", "SHIPPED", "DELIVERED", "CANCELLED", "RETURNED"
+- paymentMode (String) - "CARD", "UPI", "COD", "WALLET"
+- deliveryCity (String)
+- isPrime (boolean) - Prime member or not
+
+Customer Class:
+- customerId (String)
+- name (String)
+- email (String)
+- phoneNumber (String)
+- city (String)
+- isPrimeMember (boolean)
+- registrationDate (LocalDate)
+
+ Requirements
+
+ Level 1: Order Analytics
+1. Find total number of orders placed today
+2. Calculate total revenue from all delivered orders
+3. List all pending orders (status = "PLACED")
+4. Find orders above ₹10,000
+5. Count how many orders were cancelled
+6. Calculate average order value
+
+ Level 2: Customer Analytics
+7. Find top 10 customers by total purchase amount
+8. Calculate Prime vs Non-Prime customer revenue contribution
+9. Identify customers who have returned more than 3 orders (potential fraud)
+10. Find city-wise order distribution
+11. Calculate customer lifetime value (total orders per customer)
+12. Find customers who haven't ordered in last 30 days (inactive customers)
+
+ Level 3: Product & Inventory Analytics
+13. Find best-selling products (by quantity sold)
+14. Calculate category-wise revenue
+15. Identify low-stock products (stock < 10) that are high-selling
+16. Find products with high return rate (>15% of orders returned)
+17. Calculate average delivery time for each city
+18. Payment mode preference analysis
+
+Level 4: Advanced Business Intelligence
+19. Fraud Detection:  Find customers with multiple orders from different cities on same day
+20. Dynamic Pricing: Identify products with low ratings but high sales (pricing issue?)
+21.  Inventory Optimization: Products with high stock but low sales in last 30 days
+22. Prime Conversion Opportunity: Non-prime customers with >5 orders in last month
+23. Seller Performance: Rank sellers by total revenue and average rating
+24. Seasonal Trends: Compare current month sales with previous month (growth %)
+
+Expected Output Format
+
+=== AMAZON ORDER ANALYTICS DASHBOARD ===
+Date: 2025-11-13
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ EXECUTIVE SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total Orders Today: 15,234
+Total Revenue: ₹2,45,67,890
+Average Order Value: ₹1,612
+Cancellation Rate: 3.2%
+Return Rate: 2.8%
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REVENUE ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Category-wise Revenue:
+1. Electronics: ₹95,34,000 (38.8%)
+2. Clothing: ₹72,15,000 (29.4%)
+3. Home: ₹45,67,000 (18.6%)
+4. Books: ₹22,51,890 (9.2%)
+5. Toys: ₹10,00,000 (4.0%)
+
+Prime Members: ₹1,85,45,000 (75.5%)
+Non-Prime: ₹60,22,890 (24.5%)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TOP PERFORMERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Top 5 Customers:
+1. C00124 - Rahul Sharma: ₹2,45,000 (12 orders)
+2. C00567 - Priya Patel: ₹1,89,500 (8 orders)
+3. C00890 - Amit Kumar: ₹1,67,800 (15 orders)
+...
+
+Top 5 Products:
+1. P12345 - iPhone 15 Pro: 234 units, ₹35,10,000
+2. P23456 - Samsung TV 55": 156 units, ₹24,96,000
+3. P34567 - Nike Air Max: 445 units, ₹22,25,000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ALERTS & ACTION ITEMS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FRAUD DETECTION:
+- Customer C00234: 5 orders from different cities today
+- Customer C00789: 3 high-value orders, new account
+
+LOW STOCK ALERTS (High-Demand):
+- P12345 - iPhone 15 Pro: Only 5 units left
+- P23456 - Samsung TV: Only 3 units left
+
+ PRIME CONVERSION OPPORTUNITIES:
+- 234 non-prime customers with >5 orders this month
+- Potential revenue increase: ₹12,45,000/year
+
+HIGH RETURN RATE PRODUCTS:
+- P67890 - XYZ Shoes: 23% return rate (56/245)
+- P78901 - ABC Dress: 18% return rate (34/189)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ GEOGRAPHICAL INSIGHTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Top 5 Cities by Orders:
+1. Mumbai: 3,456 orders, ₹45,67,890
+2. Delhi: 2,890 orders, ₹38,45,000
+3. Bangalore: 2,345 orders, ₹34,56,000
+4. Chennai: 1,890 orders, ₹25,78,000
+5. Kolkata: 1,567 orders, ₹21,34,000
+
+Average Delivery Time:
+- Mumbai: 1.2 days
+- Delhi: 1.5 days
+- Bangalore: 2.1 days
+...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAYMENT PREFERENCES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+UPI: 45.6% (₹1,12,00,000)
+CARD: 32.4% (₹79,56,000)
+COD: 15.2% (₹37,34,890)
+WALLET: 6.8% (₹16,77,000)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ SELLER PERFORMANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Top 3 Sellers:
+1. TechWorld Store: ₹45,67,000, Rating: 4.6
+2. FashionHub: ₹34,56,000, Rating: 4.4
+3. HomeEssentials: ₹28,90,000, Rating: 4.7
+
+Technical Hints
+- Use `LocalDateTime` for order date filtering
+- Use `Collectors.groupingBy()` with multiple levels
+- Use `Collectors.summingDouble()` for revenue calculation
+- Use `filter()` chains for complex conditions
+- Use `Map<String, DoubleSummaryStatistics>` for statistics
+- Use `sorted()` with custom comparators for ranking
+
+Business Value
+- Real-time order monitoring
+- Fraud detection and prevention
+- Inventory optimization
+- Customer segmentation for marketing
+- Seller performance tracking
+- Data-driven business decisions
+
+---

@@ -1,0 +1,105 @@
+Assignment 4 :
+
+Problem 1:
+
+Problem Statement: Employee Payroll System
+
+You are asked to design a Java program for a company’s payroll system that demonstrates inheritance and method overriding.
+
+Requirements:
+
+Create a base class Employee that has:
+
+Data members: name, salary
+
+A method calculateBonus() — which calculates a basic 5% bonus for all employees.
+
+Create two subclasses: 
+
+Manager
+
+Developer
+
+Each subclass should override the calculateBonus() method:
+
+Manager gets a 10% bonus of salary.
+
+Developer gets a 7% bonus of salary.
+
+In the main method:
+
+Create objects of each class.
+
+Use a parent class reference to call the overridden methods.
+
+Display employee details and their calculated bonus.
+-------------------------------------------------------
+
+Problem 2:
+
+Problem Statement : Interface
+
+  Vehicle Rental System
+
+Design a program for a vehicle rental company that rents different types of vehicles.
+The system should demonstrate how interfaces are used to define common behavior across multiple classes.
+
+Requirements:
+
+1. Create an interface named Rentable that has two abstract methods:
+
+    calculateRent(int days)
+    displayDetails()
+2. Create two classes — Car and Bike — that implement the Rentable interface.
+3. Each class should:
+
+    Contain properties like brand, dailyRate.
+    Provide its own logic for calculateRent().
+
+      Car → 1000 per day
+      Bike → 400 per day
+4. In the main class, create objects of both classes and display their rent details.
+
+  Example Output (for Interface Problem)
+
+ 
+Car Brand: Honda City
+Total Rent for 3 days: ₹3000
+
+Bike Brand: Royal Enfield
+Total Rent for 5 days: ₹2000
+ 
+
+---------------------------------------------------------------
+
+Problem 3: 
+ Problem Statement : Abstract Class
+
+Bank Account Management System
+
+Design a program to demonstrate how abstract classes are used to define a template for common functionality while allowing subclasses to implement specific behavior.
+
+Requirements:
+
+1. Create an abstract class Account with:
+
+    Data members: accountNumber, balance
+    Concrete method: deposit(double amount)
+    Abstract method: calculateInterest()
+2. Create two subclasses:
+
+    SavingsAccount (interest = 4%)
+    CurrentAccount (no interest)
+3. Implement calculateInterest() differently for each subclass.
+4. In the main method:
+
+    Create objects of both subclasses.
+    Deposit some money and display the calculated interest.
+
+Example Output (for Abstract Class Problem)
+ 
+Savings Account Interest: 400.0
+Current Account Interest: 0.0
+ 
+
+----------------------------------------------------------------------

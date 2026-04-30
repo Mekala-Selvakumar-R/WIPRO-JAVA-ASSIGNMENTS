@@ -1,0 +1,30 @@
+Assignment 6:
+
+Problem : E-Commerce Shopping Cart Management
+
+Detailed Scenario:
+You're developing the shopping cart module for "ShopEasy," an online retail platform. Customers browse products and add them to their cart. The cart must handle various operations while maintaining data integrity and providing a smooth user experience.
+
+Complete Requirements:
+
+Data Structure:
+- Product Class:   `productId` (String), `name` (String), `price` (double), `category` (String)
+- CartItem Class: `product` (Product), `quantity` (int), `addedTimestamp` (LocalDateTime)
+
+Functional Requirements:
+
+1. Add to Cart: When a customer adds a product already in the cart, increase quantity instead of creating duplicate entries
+2. Remove from Cart: Remove specific products or reduce quantity
+3. Update Quantity: Modify quantity of existing items (validate quantity > 0)
+4. Calculate Total: Compute total price (sum of all items × quantities)
+5. Apply Discount: Support discount codes (percentage or fixed amount)
+6. Display Order: Show items in the order they were first added
+7. Check Stock: Before adding, verify if requested quantity is available
+8. Save Cart: Persist cart for logged-in users (serialize to JSON)
+
+Edge Cases to Handle:
+- Adding items with quantity 0 or negative
+- Removing items not in cart
+- Cart size limit (max 50 unique items)
+- Price changes between adding and checkout
+- Concurrent modifications (multiple browser tabs)
