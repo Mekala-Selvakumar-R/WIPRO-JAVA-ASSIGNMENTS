@@ -1,0 +1,196 @@
+# Spring MVC Hands-On Problem Statement
+
+## Title: Student Registration System Using Spring MVC
+
+### Objective
+
+Develop a web-based Student Registration System using Spring MVC framework to understand:
+
+* MVC Architecture
+* DispatcherServlet
+* Controller
+* View Resolver
+* Form Handling
+* Request Mapping
+* Model Object
+* JSP Integration
+
+---
+
+# Problem Statement
+
+A training institute wants to develop a web application for student registration.
+The application should allow users to enter student details through a web form and display the submitted information on another page.
+
+You are required to develop this application using Spring MVC architecture.
+
+---
+
+# Functional Requirements
+
+## Module 1: Student Model Class
+
+Create a `Student` class with the following fields:
+
+* studentId
+* studentName
+* course
+* email
+
+Include:
+
+* Getters and Setters
+* Constructors
+* `toString()` method
+
+---
+
+## Module 2: Controller Layer
+
+Create a controller class:
+
+* `StudentController`
+
+Responsibilities:
+
+* Display registration form
+* Receive submitted form data
+* Send data to view page
+
+Required request mappings:
+
+ 
+/register
+/saveStudent
+ 
+
+Methods:
+
+ 
+public String showForm(Model model)
+
+public String saveStudent(@ModelAttribute Student student, Model model)
+ 
+
+---
+
+## Module 3: View Layer (JSP Pages)
+
+### Create JSP Pages:
+
+1. `register.jsp`
+
+   * Student registration form
+
+2. `success.jsp`
+
+   * Display submitted student details
+
+Form fields:
+
+* Student ID
+* Student Name
+* Course
+* Email
+
+---
+
+## Module 4: Spring MVC Configuration
+
+Configure:
+
+* DispatcherServlet
+* View Resolver
+* Component Scanning
+
+ 
+
+---
+
+## Module 5: Application Flow
+
+### Step 1
+
+User opens:
+
+ 
+http://localhost:8080/StudentApp/register
+ 
+
+### Step 2
+
+Registration form is displayed.
+
+### Step 3
+
+User enters details and submits form.
+
+### Step 4
+
+Controller receives data and forwards to success page.
+
+### Step 5
+
+Success page displays submitted student details.
+
+---
+
+# Expected Output
+
+## Registration Page : Design your own Registration Page
+
+## Success Page
+
+ 
+Student Registered Successfully
+
+Student Details
+-------------------------
+Student Id   : 101
+Student Name : Arun
+Course       : Java Full Stack
+Email        : arun@gmail.com
+ 
+
+---
+
+# Constraints
+
+* Follow MVC architecture properly.
+* Do not write business logic inside JSP.
+* Use Spring MVC annotations.
+* Use Model object to transfer data between Controller and View.
+
+---
+
+# Concepts Practiced
+
+* Spring MVC Architecture
+* DispatcherServlet
+* Controller
+* RequestMapping
+* ModelAttribute
+* JSP View Resolver
+* Form Handling
+* MVC Flow
+
+---
+
+# Bonus Tasks
+
+1. Add form validation using:
+
+   * `@Valid`
+   * `BindingResult`
+
+2. Add dropdown for course selection.
+
+3. Add Bootstrap styling.
+
+4. Store registered students in a collection and display all students.
+
+5. Implement exception handling using:
+
+ 
+@ExceptionHandler
+ 

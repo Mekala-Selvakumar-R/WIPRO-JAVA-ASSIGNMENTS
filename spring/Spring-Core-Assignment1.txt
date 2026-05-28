@@ -1,0 +1,171 @@
+# Spring Core Hands-On Problem Statement
+
+## Title: Employee Management System Using Spring Core
+
+### Objective
+
+Develop a Spring Core application to understand the concepts of:
+
+* Inversion of Control (IoC)
+* Dependency Injection (DI)
+* Bean Configuration
+* Constructor Injection
+* Setter Injection
+* Autowiring
+* Annotation-based Configuration
+
+---
+
+# Problem Statement
+
+A company wants to develop a simple Employee Management System to maintain employee information.
+The application should be designed using Spring Core principles to achieve loose coupling between components.
+
+You are required to create a Spring Core application where:
+
+* Employee details are managed through a service layer.
+* Service layer communicates with repository layer.
+* Dependencies must be injected using Spring Framework.
+
+---
+
+# Functional Requirements
+
+## Module 1: Employee Class
+
+Create an `Employee` class with the following fields:
+
+* employeeId
+* employeeName
+* department
+* salary
+
+Include:
+
+* Constructors
+* Getters and Setters
+* `toString()` method
+
+---
+
+## Module 2: Repository Layer
+
+Create a class:
+
+* `EmployeeRepository`
+
+Responsibilities:
+
+* Store employee information
+* Display employee details
+
+Methods:
+
+```java
+public void saveEmployee(Employee employee);
+public void displayEmployee(Employee employee);
+```
+
+---
+
+## Module 3: Service Layer
+
+Create a class:
+
+* `EmployeeService`
+
+Responsibilities:
+
+* Communicate with repository layer
+* Process employee operations
+
+Inject `EmployeeRepository` into `EmployeeService` using:
+
+* Constructor Injection
+* Setter Injection
+
+Methods:
+
+```java
+public void addEmployee(Employee employee);
+```
+
+---
+
+## Module 4: Spring Configuration
+
+Configure beans using:
+
+* XML Configuration (`applicationContext.xml`)
+  OR
+* Annotation-based Configuration
+
+Required beans:
+
+* Employee
+* EmployeeRepository
+* EmployeeService
+
+---
+
+## Module 5: Main Class
+
+Create a main class to:
+
+* Load Spring Container
+* Get bean from container
+* Create employee object
+* Add employee details
+* Display employee information
+
+---
+
+# Expected Output
+
+```text
+Employee Added Successfully
+
+Employee Details
+-------------------------
+Employee Id   : 101
+Employee Name : Arun
+Department    : IT
+Salary        : 55000
+```
+
+---
+
+# Constraints
+
+* Do not create objects using `new` keyword for service/repository classes.
+* All objects must be managed by Spring Container.
+* Use loose coupling wherever possible.
+
+---
+
+# Concepts Practiced
+
+* Spring IoC Container
+* Dependency Injection
+* Constructor Injection
+* Setter Injection
+* Spring Beans
+* Bean Lifecycle
+* XML Configuration
+* Annotation Configuration
+* Autowiring
+
+---
+
+# Bonus Tasks
+
+1. Add multiple employees using collection injection.
+2. Use `@Autowired` annotation.
+3. Implement Bean Scope:
+
+   * Singleton
+   * Prototype
+4. Add logging using Bean Lifecycle methods:
+
+   * init-method
+   * destroy-method
