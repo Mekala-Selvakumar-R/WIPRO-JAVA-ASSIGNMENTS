@@ -1,0 +1,317 @@
+# Hands-On: Employee Management System Using Spring MVC + Hibernate (Java Configuration)
+
+## Objective
+
+Develop a web-based Employee Management System using **Spring MVC**, **Hibernate**, and **Oracle/MySQL Database** with **pure Java Configuration (No XML)**.
+
+The application should allow users to:
+
+* Add a new employee
+* View all employees
+* Search employee by ID
+* Update employee details
+* Delete employee records
+
+---
+
+# Problem Statement
+
+ABC Technologies wants to digitize its employee management process. The company requires a web application where HR personnel can maintain employee information.
+
+You have been assigned to develop the application using:
+
+* Spring MVC
+* Hibernate ORM
+* Java-Based Configuration
+* JSP Views
+* Oracle/MySQL Database
+
+The application must follow the MVC architecture and use Hibernate for database operations.
+
+---
+
+# Functional Requirements
+
+## Module 1: Employee Entity
+
+Create an entity class named `Employee`.
+
+### Attributes
+
+| Field        | Type    |
+| ------------ | ------- |
+| employeeId   | Integer |
+| employeeName | String  |
+| department   | String  |
+| salary       | Double  |
+| email        | String  |
+
+### Requirements
+
+* Map the class using Hibernate annotations.
+* Configure `employeeId` as the primary key.
+
+---
+
+## Module 2: DAO Layer
+
+Create:  
+EmployeeDAO
+ 
+
+### Methods
+
+ 
+void saveEmployee(Employee employee);
+
+List<Employee> getAllEmployees();
+
+Employee findEmployeeById(int employeeId);
+
+void updateEmployee(Employee employee);
+
+void deleteEmployee(int employeeId);
+ 
+
+---
+
+## Module 3: Service Layer
+
+Create:
+
+ 
+EmployeeService
+ 
+
+### Responsibilities
+
+* Interact with DAO layer
+* Manage business operations
+* Handle transactions
+
+---
+
+## Module 4: Controller Layer
+
+Create:
+
+ 
+EmployeeController
+ 
+
+### Request Mappings
+
+| URL                   | Description           |
+| --------------------- | --------------------- |
+| /employee/register    | Display Employee Form |
+| /employee/save        | Save Employee         |
+| /employee/list        | Display All Employees |
+| /employee/edit/{id}   | Edit Employee         |
+| /employee/delete/{id} | Delete Employee       |
+
+---
+
+## Module 5: View Layer (JSP)
+
+### employee-form.jsp
+
+Provide form fields:
+
+ 
+Employee Id
+Employee Name
+Department
+Salary
+Email
+ 
+
+Button:  
+Save Employee
+ 
+
+### employee-list.jsp
+
+Display employee details in tabular format.
+
+| Id | Name | Department | Salary | Email | Action |
+| -- | ---- | ---------- | ------ | ----- | ------ |
+
+Actions:
+
+* Edit
+* Delete
+
+---
+
+# Java Configuration Requirements
+
+## 1. Web Initializer
+
+Create:
+
+ 
+public class WebAppInitializer
+       extends AbstractAnnotationConfigDispatcherServletInitializer
+```
+
+Responsibilities:
+
+* Register DispatcherServlet
+* Load configuration classes
+
+---
+
+## 2. Spring MVC Configuration
+
+Create:
+
+ 
+@Configuration
+@EnableWebMvc
+@ComponentScan("com.company")
+public class WebConfig
+ 
+
+Configure:
+
+* ViewResolver
+* Component Scanning
+
+---
+
+## 3. Hibernate Configuration
+
+Create:
+
+ 
+@Configuration
+@EnableTransactionManagement
+public class HibernateConfig
+ 
+
+Configure:
+
+* DataSource
+* SessionFactory
+* Hibernate Properties
+* Transaction Manager
+
+---
+
+# Database Table
+
+### EMPLOYEE
+
+| Column Name | Type         |
+| ----------- | ------------ |
+| EMP_ID      | NUMBER / INT |
+| EMP_NAME    | VARCHAR      |
+| DEPARTMENT  | VARCHAR      |
+| SALARY      | NUMBER       |
+| EMAIL       | VARCHAR      |
+
+---
+
+# Application Flow
+
+### Step 1
+
+Open:
+
+ 
+http://localhost:8080/EmployeeApp/employee/register
+ 
+
+### Step 2
+
+Enter employee details.
+
+### Step 3
+
+Click Save.
+
+### Step 4
+
+Employee data should be stored in database using Hibernate.
+
+### Step 5
+
+Redirect to Employee List page.
+
+### Step 6
+
+Display all employee records.
+
+### Step 7
+
+Allow Edit and Delete operations.
+
+---
+
+# Expected Output
+
+### Employee Registration Page
+
+ 
+Employee Id    : 101
+Employee Name  : John
+Department     : IT
+Salary         : 65000
+Email          : john@gmail.com
+
+[Save Employee]
+ 
+
+---
+
+### Employee List Page
+
+ 
+-------------------------------------------------------------
+ID   NAME      DEPARTMENT    SALARY      EMAIL
+-------------------------------------------------------------
+101  John      IT            65000       john@gmail.com
+102  Smith     HR            55000       smith@gmail.com
+-------------------------------------------------------------
+
+Edit | Delete
+ 
+
+---
+
+# Concepts Covered
+
+### Spring MVC
+
+* DispatcherServlet
+* Controller
+* Model
+* View Resolver
+* Form Handling
+* PathVariable
+
+### Hibernate
+
+* Entity Mapping
+* SessionFactory
+* Session
+* CRUD Operations
+* HQL
+
+### Spring Integration
+
+* DAO Layer
+* Service Layer
+* Transaction Management
+* Dependency Injection
+
+### Java Configuration
+
+* `@Configuration`
+* `@Bean`
+* `@EnableWebMvc`
+* `@EnableTransactionManagement`
+* `AbstractAnnotationConfigDispatcherServletInitializer`
+
+---
+ 

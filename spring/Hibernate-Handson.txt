@@ -1,0 +1,232 @@
+# Hibernate Hands-On Problem Statement
+
+## Title: Employee Management System Using Hibernate
+
+### Objective
+
+Develop a Hibernate application to perform CRUD (Create, Read, Update, Delete) operations on employee records using ORM (Object Relational Mapping).
+
+The application should demonstrate:
+
+* Hibernate Configuration
+* Entity Mapping
+* Session Management
+* CRUD Operations
+* HQL Queries
+
+---
+
+# Problem Statement
+
+A company wants to maintain employee details in a database using Hibernate Framework.
+The application should allow users to:
+
+* Add employee details
+* View employee information
+* Update employee salary
+* Delete employee records
+
+You are required to develop this application using Hibernate ORM framework.
+
+---
+
+# Functional Requirements
+
+## Module 1: Employee Entity Class
+
+Create an entity class:
+
+* `Employee`
+
+Fields:
+
+* employeeId
+* employeeName
+* department
+* salary
+
+Requirements:
+
+* Use Hibernate annotations
+* Map class to database table
+* Map fields to columns
+
+Example:
+
+ 
+@Entity
+@Table(name="employee")
+ 
+
+---
+
+## Module 2: Hibernate Configuration
+
+Configure Hibernate using:  Use Java Configuration
+
+Database:
+
+* MySQL / Oracle
+
+---
+
+## Module 3: DAO Layer
+
+Create:
+
+* `EmployeeDAO`
+
+Responsibilities:
+
+* Insert employee
+* Retrieve employee
+* Update employee
+* Delete employee
+
+Methods:
+
+ 
+public void addEmployee(Employee employee);
+
+public Employee getEmployee(int employeeId);
+
+public void updateEmployeeSalary(int employeeId, double salary);
+
+public void deleteEmployee(int employeeId);
+public List<Employee> getAllEmployee()
+ 
+
+---
+
+## Module 4: Service Layer
+
+Create:
+
+* `EmployeeService`
+
+Responsibilities:
+
+* Communicate with DAO layer
+* Perform employee operations
+
+---
+
+## Module 5: Main Application
+
+Create a main class to:
+
+* Load Hibernate configuration
+* Open Hibernate Session
+* Perform CRUD operations
+* Commit transactions
+* Close session and factory
+
+---
+
+# Database Table Structure
+
+## Employee Table
+
+| Column Name   | Data Type |
+| ------------- | --------- |
+| employee_id   | INT       |
+| employee_name | VARCHAR   |
+| department    | VARCHAR   |
+| salary        | DOUBLE    |
+
+---
+
+# Expected Output
+
+## Insert Operation
+
+ 
+Employee Added Successfully
+```
+
+---
+
+## Retrieve Operation
+
+ 
+Employee Details
+-------------------------
+Employee Id   : 101
+Employee Name : Arun
+Department    : IT
+Salary        : 55000
+```
+
+ 
+
+## Update Operation
+
+ 
+Employee Salary Updated Successfully
+ 
+
+---
+
+## Delete Operation
+
+ 
+Employee Deleted Successfully
+ 
+
+---
+
+# Constraints
+
+* Use Hibernate annotations only.
+* Use SessionFactory and Session properly.
+* Transactions must be handled correctly.
+* Follow layered architecture:
+
+  * Entity
+  * DAO
+  * Service
+
+---
+
+# Concepts Practiced
+
+* Hibernate ORM
+* Entity Mapping
+* SessionFactory
+* Session
+* Transactions
+* CRUD Operations
+* HQL
+* Annotation-based Mapping
+
+---
+
+# Bonus Tasks
+
+## Task 1
+
+Add search functionality using HQL:
+
+ 
+from Employee where department='IT'
+ 
+
+---
+
+## Task 2
+
+Implement pagination using Hibernate.
+
+---
+
+## Task 3
+
+Add one-to-many mapping:
+
+* Department → Employees
+
+---
+ 
+## Task 4
+
+Use Criteria API for dynamic queries.

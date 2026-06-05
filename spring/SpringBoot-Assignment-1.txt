@@ -1,0 +1,389 @@
+# Hands-On: Employee Management REST API Using Spring Boot + Oracle/MySQL
+
+## Objective
+
+Develop a RESTful Employee Management System using **Spring Boot**, **Spring Data JPA**, and **Oracle/MySQL**. The application should expose REST APIs for managing employee records and implement centralized exception handling using **Custom Exceptions** and **Global Exception Handler**.
+
+---
+
+# Problem Statement
+
+XYZ Technologies wants to expose employee information through REST APIs so that other applications can consume employee data.
+
+Develop a Spring Boot application that provides APIs to:
+
+* Add a new employee
+* Retrieve employee details
+* Retrieve all employees
+* Update employee information
+* Delete an employee
+* Handle exceptions using custom exception classes and a global exception handler
+
+---
+
+# Database Table
+
+### EMPLOYEE
+
+| Column Name | Data Type    |
+| ----------- | ------------ |
+| EMP_ID      | NUMBER / INT |
+| EMP_NAME    | VARCHAR(50)  |
+| DEPARTMENT  | VARCHAR(30)  |
+| EMAIL       | VARCHAR(50)  |
+| SALARY      | NUMBER       |
+
+---
+
+# Entity Class
+
+## Employee
+
+| Field        | Type    |
+| ------------ | ------- |
+| employeeId   | Integer |
+| employeeName | String  |
+| department   | String  |
+| email        | String  |
+| salary       | Double  |
+
+### Validation Rules
+
+* Employee Name cannot be blank.
+* Email should be valid.
+* Salary must be greater than zero.
+
+---
+
+# Functional Requirements
+
+## 1. Add Employee
+
+### Endpoint
+
+```http
+POST /api/employees
+```
+
+### Request Body
+
+```json
+{
+  "employeeName": "John",
+  "department": "IT",
+  "email": "john@gmail.com",
+  "salary": 65000
+}
+```
+
+### Response
+
+```json
+{
+  "message": "Employee Added Successfully"
+}
+```
+
+---
+
+## 2. Get Employee By ID
+
+### Endpoint
+
+```http
+GET /api/employees/{id}
+```
+
+### Success Response
+
+```json
+{
+  "employeeId": 101,
+  "employeeName": "John",
+  "department": "IT",
+  "email": "john@gmail.com",
+  "salary": 65000
+}
+```
+
+---
+
+## 3. Get All Employees
+
+### Endpoint
+
+```http
+GET /api/employees
+```
+
+### Response
+
+```json
+[
+  {
+    "employeeId": 101,
+    "employeeName": "John",
+    "department": "IT",
+    "email": "john@gmail.com",
+    "salary": 65000
+  }
+]
+```
+
+---
+
+## 4. Update Employee
+
+### Endpoint
+
+```http
+PUT /api/employees/{id}
+```
+
+### Request Body
+
+```json
+{
+  "employeeName": "John Smith",
+  "department": "IT",
+  "email": "johnsmith@gmail.com",
+  "salary": 70000
+}
+```
+
+---
+
+## 5. Delete Employee
+
+### Endpoint
+
+```http
+DELETE /api/employees/{id}
+```
+
+### Response
+
+```json
+{
+  "message": "Employee Deleted Successfully"
+}
+```
+
+---
+
+# Exception Handling Requirements
+
+## Custom Exception 1
+
+### EmployeeNotFoundException
+
+Throw this exception when:
+
+```text
+Requested Employee ID is not available in the database.
+```
+
+Example:
+
+```java
+throw new EmployeeNotFoundException("Employee with ID 101 not found");
+```
+
+---
+
+## Custom Exception 2
+
+### DuplicateEmailException
+
+Throw this exception when:
+
+```text
+An employee is registered with an email that already exists.
+```
+
+Example:
+
+```java
+throw new DuplicateEmailException("Email already exists");
+```
+
+---
+
+# Global Exception Handler
+
+Create:
+
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler
+```
+
+Handle:
+
+### EmployeeNotFoundException
+
+Response:
+
+```json
+{
+  "timestamp": "2026-06-05T10:30:00",
+  "status": 404,
+  "message": "Employee with ID 101 not found"
+}
+```
+
+---
+
+### DuplicateEmailException
+
+Response:
+
+```json
+{
+  "timestamp": "2026-06-05T10:30:00",
+  "status": 409,
+  "message": "Email already exists"
+}
+```
+
+---
+
+### Validation Errors
+
+Handle:
+
+```java
+MethodArgumentNotValidException
+```
+
+Response:
+
+```json
+{
+  "employeeName": "Employee name is required",
+  "email": "Invalid email format"
+}
+```
+
+---
+
+### Generic Exception
+
+Handle:
+
+```java
+Exception
+```
+
+Response:
+
+```json
+{
+  "timestamp": "2026-06-05T10:30:00",
+  "status": 500,
+  "message": "Internal Server Error"
+}
+```
+
+---
+
+# Project Structure
+
+```text
+com.company.ems
+
+├── controller
+│   └── EmployeeController
+│
+├── service
+│   ├── EmployeeService
+│   └── EmployeeServiceImpl
+│
+├── repository
+│   └── EmployeeRepository
+│
+├── entity
+│   └── Employee
+│
+├── exception
+│   ├── EmployeeNotFoundException
+│   ├── DuplicateEmailException
+│   └── GlobalExceptionHandler
+│
+├── dto
+│   └── EmployeeDTO
+│
+└── EmployeeManagementApplication
+```
+
+---
+
+# Technologies to Use
+
+* Spring Boot
+* Spring Web
+* Spring Data JPA
+* Oracle Driver / MySQL Driver
+* Hibernate
+* Lombok (Optional)
+* Validation API (`spring-boot-starter-validation`)
+* Postman for API Testing
+
+---
+
+# Bonus Tasks
+
+### Task 1
+
+Implement search by department.
+
+```http
+GET /api/employees/department/{department}
+```
+
+---
+
+### Task 2
+
+Create a custom response wrapper.
+
+Example:
+
+```json
+{
+  "success": true,
+  "message": "Employee Retrieved Successfully",
+  "data": {
+    "employeeId": 101,
+    "employeeName": "John"
+  }
+}
+```
+
+---
+
+### Task 3
+
+Implement pagination and sorting.
+
+```http
+GET /api/employees?page=0&size=5&sortBy=employeeName
+```
+
+---
+
+### Task 4
+
+Add Swagger/OpenAPI documentation.
+
+---
+
+### Task 5
+
+Create a custom exception:
+
+```java
+InvalidSalaryException
+```
+
+Throw it when salary is less than ₹10,000. This exception should also be handled through the `GlobalExceptionHandler`.
