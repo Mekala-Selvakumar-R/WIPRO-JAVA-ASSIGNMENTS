@@ -1,0 +1,494 @@
+# Hands-On: Secure Product Management REST API Using Spring Security + JWT
+
+## Objective
+
+Develop a RESTful Product Management System using:
+
+* Spring Boot
+* Spring Security
+* JWT (JSON Web Token)
+* Spring Data JPA
+* MySQL / Oracle Database
+* Custom Exceptions
+* Global Exception Handling
+
+The application should authenticate users using JWT and authorize access based on roles.
+
+---
+
+# Problem Statement
+
+ABC Retail wants to expose Product Management APIs to its mobile and web applications. Since the APIs contain sensitive business information, only authenticated users should be able to access them.
+
+Develop a secure REST API that:
+
+* Authenticates users using username and password.
+* Generates JWT tokens upon successful login.
+* Allows users to access APIs using JWT tokens.
+* Restricts certain operations to ADMIN users only.
+* Handles authentication and authorization failures gracefully.
+
+---
+
+# Database Tables
+
+## USERS
+
+| Column Name | Data Type    |
+| ----------- | ------------ |
+| user_id     | INT          |
+| username    | VARCHAR(50)  |
+| password    | VARCHAR(100) |
+| role        | VARCHAR(20)  |
+
+### Sample Records
+
+| Username | Password | Role  |
+| -------- | -------- | ----- |
+| admin    | admin123 | ADMIN |
+| user     | user123  | USER  |
+
+> Passwords must be stored using BCrypt encoding.
+
+---
+
+## PRODUCT
+
+| Column Name  | Data Type   |
+| ------------ | ----------- |
+| product_id   | INT         |
+| product_name | VARCHAR(50) |
+| category     | VARCHAR(30) |
+| price        | DOUBLE      |
+| quantity     | INT         |
+
+---
+
+# Functional Requirements
+
+## Authentication Module
+
+### Login API
+
+```http
+POST /api/auth/login
+```
+
+### Request
+
+```json
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+
+### Response
+
+```json
+{
+  "token": "jwt-token-generated"
+}
+```
+
+---
+
+# Product APIs
+
+## Add Product
+
+```http
+POST /api/products
+```
+
+### Access
+
+```text
+ADMIN Only
+```
+
+---
+
+## Get All Products
+
+```http
+GET /api/products
+```
+
+### Access
+
+```text
+ADMIN and USER
+```
+
+---
+
+## Get Product By ID
+
+```http
+GET /api/products/{id}
+```
+
+### Access
+
+```text
+ADMIN and USER
+```
+
+---
+
+## Update Product
+
+```http
+PUT /api/products/{id}
+```
+
+### Access
+
+```text
+ADMIN Only
+```
+
+---
+
+## Delete Product
+
+```http
+DELETE /api/products/{id}
+```
+
+### Access
+
+```text
+ADMIN Only
+```
+
+---
+
+# JWT Requirements
+
+Create a utility class:
+
+```java
+JwtUtil
+```
+
+Responsibilities:
+
+* Generate JWT Token
+* Validate JWT Token
+* Extract Username from Token
+* Check Token Expiration
+
+Methods:
+
+```java
+String generateToken(String username);
+
+String extractUsername(String token);
+
+boolean validateToken(String token);
+```
+
+---
+
+# Security Configuration
+
+Create:
+
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig
+```
+
+Requirements:
+
+* Disable CSRF
+* Stateless Session Management
+* Configure JWT Filter
+* Configure Authentication Provider
+* Configure BCryptPasswordEncoder
+
+---
+
+# JWT Filter
+
+Create:
+
+```java
+JwtAuthenticationFilter
+```
+
+Responsibilities:
+
+* Read Authorization Header
+* Extract JWT Token
+* Validate Token
+* Authenticate User
+
+Expected Header:
+
+```http
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...
+```
+
+---
+
+# Entity Classes
+
+## User
+
+```java
+private Integer userId;
+private String username;
+private String password;
+private String role;
+```
+
+---
+
+## Product
+
+```java
+private Integer productId;
+private String productName;
+private String category;
+private Double price;
+private Integer quantity;
+```
+
+---
+
+# Service Layer
+
+## ProductService
+
+Methods:
+
+```java
+List<Product> getAllProducts();
+
+Product getProductById(Integer id);
+
+Product addProduct(Product product);
+
+Product updateProduct(Integer id, Product product);
+
+void deleteProduct(Integer id);
+```
+
+---
+
+# Custom Exceptions
+
+## ProductNotFoundException
+
+Throw when:
+
+```text
+Requested Product ID is not available.
+```
+
+Example:
+
+```java
+throw new ProductNotFoundException(
+      "Product with ID " + id + " not found");
+```
+
+---
+
+## InvalidTokenException
+
+Throw when:
+
+```text
+JWT token is invalid or expired.
+```
+
+---
+
+# Global Exception Handler
+
+Create:
+
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler
+```
+
+Handle:
+
+### ProductNotFoundException
+
+```json
+{
+  "status": 404,
+  "message": "Product with ID 101 not found"
+}
+```
+
+---
+
+### InvalidTokenException
+
+```json
+{
+  "status": 401,
+  "message": "Invalid or Expired Token"
+}
+```
+
+---
+
+### AccessDeniedException
+
+```json
+{
+  "status": 403,
+  "message": "Access Denied"
+}
+```
+
+---
+
+### MethodArgumentNotValidException
+
+```json
+{
+  "productName": "Product Name is required",
+  "price": "Price must be greater than zero"
+}
+```
+
+---
+
+# Security Rules
+
+| API               | USER | ADMIN |
+| ----------------- | ---- | ----- |
+| Login             | ✔    | ✔     |
+| Get All Products  | ✔    | ✔     |
+| Get Product By ID | ✔    | ✔     |
+| Add Product       | ✘    | ✔     |
+| Update Product    | ✘    | ✔     |
+| Delete Product    | ✘    | ✔     |
+
+---
+
+# Expected Testing Flow
+
+### Step 1: Login
+
+```http
+POST /api/auth/login
+```
+
+Response:
+
+```json
+{
+  "token":"eyJhbGciOiJIUzI1NiJ9..."
+}
+```
+
+---
+
+### Step 2: Access Protected API
+
+```http
+GET /api/products
+```
+
+Headers:
+
+```http
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...
+```
+
+---
+
+### Step 3: Access ADMIN API Using USER Token
+
+```http
+POST /api/products
+```
+
+Expected:
+
+```json
+{
+  "status": 403,
+  "message": "Access Denied"
+}
+```
+
+---
+
+# Project Structure
+
+```text
+com.company.productapi
+
+├── controller
+│   ├── AuthController
+│   └── ProductController
+│
+├── service
+│   ├── ProductService
+│   ├── ProductServiceImpl
+│   └── CustomUserDetailsService
+│
+├── repository
+│   ├── ProductRepository
+│   └── UserRepository
+│
+├── entity
+│   ├── Product
+│   └── User
+│
+├── security
+│   ├── SecurityConfig
+│   ├── JwtUtil
+│   └── JwtAuthenticationFilter
+│
+├── exception
+│   ├── ProductNotFoundException
+│   ├── InvalidTokenException
+│   └── GlobalExceptionHandler
+│
+├── dto
+│   ├── LoginRequest
+│   └── JwtResponse
+│
+└── ProductManagementApplication
+```
+
+---
+
+# Concepts Covered
+
+* Spring Boot REST API
+* Spring Security 6
+* JWT Authentication
+* AuthenticationManager
+* UserDetailsService
+* SecurityFilterChain
+* OncePerRequestFilter
+* BCrypt Password Encoder
+* Role-Based Authorization
+* Custom Exceptions
+* Global Exception Handling
+* Spring Data JPA
+* MySQL / Oracle Integration
+
+### Extension Challenge
+
+Implement **Refresh Token Authentication** with:
+
+* `/api/auth/refresh`
+* Access Token validity: 15 minutes
+* Refresh Token validity: 7 days
+
+This will help learners understand real-world JWT security implementations used in enterprise applications.

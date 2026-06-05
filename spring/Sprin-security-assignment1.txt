@@ -1,0 +1,389 @@
+# Hands-On: Employee Management REST API with Spring Security (Basic Authentication)
+
+## Objective
+
+Develop a secure Employee Management REST API using **Spring Boot**, **Spring Security**, and **MySQL/Oracle**.
+
+The application should:
+
+* Authenticate users using Spring Security.
+* Authorize users based on roles (**ADMIN** and **USER**).
+* Secure REST endpoints.
+* Implement Custom Exceptions and Global Exception Handling.
+* Store employee data in the database.
+
+---
+
+# Problem Statement
+
+XYZ Technologies wants to secure its Employee Management APIs. Only authenticated users should be allowed to access the APIs, and certain operations should be restricted based on user roles.
+
+Develop a Spring Boot REST application that:
+
+* Allows authenticated users to view employee information.
+* Allows only administrators to create, update, and delete employees.
+* Returns proper error responses for unauthorized and forbidden access.
+
+---
+
+# Database Tables
+
+## EMPLOYEE
+
+| Column Name | Data Type   |
+| ----------- | ----------- |
+| EMP_ID      | INT         |
+| EMP_NAME    | VARCHAR(50) |
+| DEPARTMENT  | VARCHAR(30) |
+| EMAIL       | VARCHAR(50) |
+| SALARY      | DOUBLE      |
+
+---
+
+## USERS
+
+| Column Name | Data Type    |
+| ----------- | ------------ |
+| USER_ID     | INT          |
+| USERNAME    | VARCHAR(50)  |
+| PASSWORD    | VARCHAR(100) |
+| ROLE        | VARCHAR(20)  |
+
+### Sample Data
+
+| USERNAME | PASSWORD | ROLE  |
+| -------- | -------- | ----- |
+| admin    | admin123 | ADMIN |
+| user     | user123  | USER  |
+
+> Store passwords using BCrypt encoding.
+
+---
+
+# Functional Requirements
+
+## Employee APIs
+
+### Get All Employees
+
+```http
+GET /api/employees
+```
+
+### Get Employee By ID
+
+```http
+GET /api/employees/{id}
+```
+
+### Add Employee
+
+```http
+POST /api/employees
+```
+
+### Update Employee
+
+```http
+PUT /api/employees/{id}
+```
+
+### Delete Employee
+
+```http
+DELETE /api/employees/{id}
+```
+
+---
+
+# Security Requirements
+
+## Role-Based Access Control
+
+| Endpoint                   | Access      |
+| -------------------------- | ----------- |
+| GET /api/employees         | ADMIN, USER |
+| GET /api/employees/{id}    | ADMIN, USER |
+| POST /api/employees        | ADMIN       |
+| PUT /api/employees/{id}    | ADMIN       |
+| DELETE /api/employees/{id} | ADMIN       |
+
+---
+
+# Expected Security Configuration
+
+Create:
+
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig
+```
+
+Configure:
+
+* Basic Authentication
+* Password Encoder
+* Authentication Provider
+* Security Filter Chain
+
+---
+
+# Entity Classes
+
+## Employee
+
+```java
+private Integer employeeId;
+private String employeeName;
+private String department;
+private String email;
+private Double salary;
+```
+
+---
+
+## User
+
+```java
+private Integer userId;
+private String username;
+private String password;
+private String role;
+```
+
+---
+
+# Service Layer
+
+## EmployeeService
+
+Methods:
+
+```java
+List<Employee> getAllEmployees();
+
+Employee getEmployeeById(Integer id);
+
+Employee addEmployee(Employee employee);
+
+Employee updateEmployee(Integer id, Employee employee);
+
+void deleteEmployee(Integer id);
+```
+
+---
+
+## CustomUserDetailsService
+
+Responsibilities:
+
+* Load user from database.
+* Implement `UserDetailsService`.
+
+Method:
+
+```java
+@Override
+public UserDetails loadUserByUsername(String username)
+```
+
+---
+
+# Custom Exceptions
+
+## EmployeeNotFoundException
+
+Throw when:
+
+```text
+Employee ID does not exist.
+```
+
+Example:
+
+```java
+throw new EmployeeNotFoundException(
+    "Employee with ID " + id + " not found"
+);
+```
+
+---
+
+# Global Exception Handler
+
+Create:
+
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler
+```
+
+Handle:
+
+### EmployeeNotFoundException
+
+```json
+{
+  "status": 404,
+  "message": "Employee with ID 101 not found"
+}
+```
+
+---
+
+### AccessDeniedException
+
+```json
+{
+  "status": 403,
+  "message": "Access Denied. You do not have permission."
+}
+```
+
+---
+
+### AuthenticationException
+
+```json
+{
+  "status": 401,
+  "message": "Invalid Username or Password"
+}
+```
+
+---
+
+# Sample Test Cases
+
+## Login as USER
+
+```text
+Username: user
+Password: user123
+```
+
+### Allowed
+
+```http
+GET /api/employees
+```
+
+### Not Allowed
+
+```http
+POST /api/employees
+```
+
+Expected Response:
+
+```json
+{
+  "status": 403,
+  "message": "Access Denied"
+}
+```
+
+---
+
+## Login as ADMIN
+
+```text
+Username: admin
+Password: admin123
+```
+
+### Allowed
+
+```http
+POST /api/employees
+PUT /api/employees/101
+DELETE /api/employees/101
+GET /api/employees
+```
+
+---
+
+# Project Structure
+
+```text
+com.company.ems
+
+├── controller
+│   └── EmployeeController
+│
+├── service
+│   ├── EmployeeService
+│   ├── EmployeeServiceImpl
+│   └── CustomUserDetailsService
+│
+├── repository
+│   ├── EmployeeRepository
+│   └── UserRepository
+│
+├── entity
+│   ├── Employee
+│   └── User
+│
+├── security
+│   └── SecurityConfig
+│
+├── exception
+│   ├── EmployeeNotFoundException
+│   └── GlobalExceptionHandler
+│
+└── EmployeeManagementApplication
+```
+
+---
+
+# Concepts Covered
+
+* Spring Security
+* Authentication
+* Authorization
+* Role-Based Access Control (RBAC)
+* UserDetailsService
+* Password Encoding (BCrypt)
+* SecurityFilterChain
+* Basic Authentication
+* Spring Data JPA
+* Global Exception Handling
+* Custom Exceptions
+* REST API Security
+
+---
+
+# Challenge Extension (JWT Security)
+
+After completing Basic Authentication, upgrade the application to use **JWT Authentication**:
+
+### Additional APIs
+
+```http
+POST /auth/login
+```
+
+Request:
+
+```json
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+
+Response:
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9..."
+}
+```
+
+Then secure all Employee APIs using JWT tokens instead of Basic Authentication. This extension introduces:
+
+* JWT Generation
+* JWT Validation
+* Custom Authentication Filter
+* Stateless Session Management.
